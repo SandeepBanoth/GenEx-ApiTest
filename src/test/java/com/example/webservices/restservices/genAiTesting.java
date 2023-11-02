@@ -4,7 +4,6 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class genAiTesting {
@@ -73,7 +72,7 @@ public class genAiTesting {
 
     // Dynamic data-driven test based on Swagger data
 
-    @DataProvider(name = "dynamicData")
+   /* @DataProvider(name = "dynamicData")
 
     public Object[][] dynamicData() {
 
@@ -87,7 +86,7 @@ public class genAiTesting {
 
         };
 
-    }
+    }*/
 
 
 
