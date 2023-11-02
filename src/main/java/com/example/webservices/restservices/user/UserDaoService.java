@@ -1,11 +1,11 @@
 package com.example.webservices.restservices.user;
 
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-
-import org.springframework.stereotype.Component;
 
 
 
@@ -38,6 +38,12 @@ public class UserDaoService {
 		users.add(user);
 		return user;
 	}
-	
-	
+
+
+    public void deleteById(int id) {
+		Predicate<? super User> predicate = user -> user.getId().equals(id);
+        users.removeIf(predicate);
+        return;
+
+    }
 }

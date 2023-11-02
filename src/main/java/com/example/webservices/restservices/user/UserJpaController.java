@@ -5,8 +5,12 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UserJpaController {
@@ -35,6 +39,31 @@ public class UserJpaController {
 
 		return service.findById(id);
 	}
+
+	@DeleteMapping("/jpa/users/{id}")
+    public void deleteUser(@PathVariable int id) {
+		service.deleteById(id);
+
+        System.out.println("User deleted");
+	}
+
+	//code for file upload
+	@PostMapping("/jpa/users/single-file-upload")
+            public ResponseEntity<Map<String, String>> handleFileUploadUsingCurl(
+					@RequestParam("file") MultipartFile file) throws IOException {
+
+        Map<String, String> map = new HashMap<>();
+
+        // Populate the map with file details
+        map.put("fileName", file.getOriginalFilename());
+        /*map.put("fileSize", file.getSize());*/
+        map.put("fileContentType", file.getContentType());
+
+        // File upload is successful
+        map.put("message", "File upload done");
+        return ResponseEntity.ok(map);
+
+    }
 
 	@PostMapping("/jpa/users")
 	public ResponseEntity<User> createUser(@Valid @RequestBody User user) {

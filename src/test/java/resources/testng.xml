@@ -1,0 +1,20 @@
+<!DOCTYPE suite SYSTEM
+        "http://testng.org/testng-1.0.dtd">
+<suite name="TestNgTestingSuite">
+
+    <listeners>
+
+        <listener class-name="org.testng.reporters.EmailableReporter" />
+
+    </listeners>
+
+    <test name="TestNgTesting">
+
+     <classes>
+
+        <class name="com.example.webservices.restservices.genAiTesting" />
+         <class name="com.example.webservices.restservices.Test01_Get" />
+
+     </classes>
+    </test>
+</suite>

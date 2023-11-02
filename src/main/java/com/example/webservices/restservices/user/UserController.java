@@ -1,16 +1,11 @@
 package com.example.webservices.restservices.user;
 
-import java.util.List;
-
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -35,4 +30,20 @@ public class UserController {
 
 		return ResponseEntity.created(null).build();
 	}
+
+	/*@PostMapping("/single-file-upload")
+	public ResponseEntity<Map<String, String>> handleFileUploadUsingCurl(
+			@RequestParam("file") MultipartFile file) throws IOException {
+
+		Map<String, String> map = new HashMap<>();
+
+		// Populate the map with file details
+		map.put("fileName", file.getOriginalFilename());
+		*//*map.put("fileSize", file.getSize());*//*
+		map.put("fileContentType", file.getContentType());
+
+		// File upload is successful
+		map.put("message", "File upload done");
+		return ResponseEntity.ok(map);
+	}*/
 }

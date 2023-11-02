@@ -1,68 +1,68 @@
 package com.example.webservices.restservices.user;
 
-import java.time.LocalDate;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDate;
+
 @Entity(name = "user_details")
 public class User {
-	
-	protected User() {
-		
-	}
 
-	@Id
-	@GeneratedValue
-	private Integer id;
-	
-	@Size(min=2,message="Name should atleast have 2 char's")
-	@JsonProperty("person_name")
-	private String name;
-	
-	@Past(message="should be a past date")
-//	@JsonProperty("Birth_day")
-	private LocalDate birthDate;
+    protected User() {
 
-	public Integer getId() {
-		return id;
-	}
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    @Id
+    @GeneratedValue
+    @JsonProperty(value="Id",required = true)
+    private Integer id;
 
-	public String getName() {
-		return name;
-	}
+    @Size(min = 2, message = "Name should atleast have 2 char's")
+    @JsonProperty(value = "person_name",required = true)
+    private String name;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Past(message = "should be a past date")
+    @JsonProperty(value = "Birth_day", required = true)
+    private LocalDate birthDate;
 
-	public LocalDate getBirthDate() {
-		return birthDate;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public User(Integer id, String name, LocalDate birthDate) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.birthDate = birthDate;
-	}
+    public String getName() {
+        return name;
+    }
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", birthDate=" + birthDate + "]";
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public User(Integer id, String name, LocalDate birthDate) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.birthDate = birthDate;
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", name=" + name + ", birthDate=" + birthDate + "]";
+    }
 
 }
