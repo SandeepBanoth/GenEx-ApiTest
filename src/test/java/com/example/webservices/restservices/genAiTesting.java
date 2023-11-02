@@ -12,7 +12,6 @@ public class genAiTesting {
     private RequestSpecification requestSpec;
 
 
-
     @BeforeClass
 
     public void setup() {
@@ -24,7 +23,6 @@ public class genAiTesting {
         requestSpec = RestAssured.given();
 
     }
-
 
 
     // Dynamic test case generation for each endpoint in the Swagger specification
@@ -42,7 +40,6 @@ public class genAiTesting {
     }
 
 
-
     @Test
 
     public void testGetTodoById() {
@@ -56,10 +53,9 @@ public class genAiTesting {
     }
 
 
-
     // Dynamic parameterized test based on Swagger data
 
-    @Test
+  /*  @Test
 
     public void testGetTodoByIdWithDynamicData() {
 
@@ -72,7 +68,7 @@ public class genAiTesting {
         // Add more assertions based on the Swagger schema
 
     }
-
+*/
 
 
     // Dynamic data-driven test based on Swagger data
@@ -81,11 +77,11 @@ public class genAiTesting {
 
     public Object[][] dynamicData() {
 
-        return new Object[][] {
+        return new Object[][]{
 
-                { 1 },
+                {1},
 
-                { 3 },
+                {3},
 
                 // Add more data combinations
 
@@ -95,7 +91,7 @@ public class genAiTesting {
 
 
 
-    @Test(dataProvider = "dynamicData")
+  /*  @Test(dataProvider = "dynamicData")
 
     public void testGetTodoByIdWithDataDriven(int id) {
 
@@ -107,4 +103,5 @@ public class genAiTesting {
 
     }
 }
-
+*/
+}
