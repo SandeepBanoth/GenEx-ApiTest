@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Test Suite" verbose="1">
+    <listeners>
+        <listener class-name="org.testng.reporters.EmailableReporter"/>
+    </listeners>
+    <test name="API Test">
+        <classes>
+            <class name="com.example.webservices.restservices.APITest"/>
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,124 @@
+openapi: 3.0.0  
+info:  
+  title: Reqres API  
+  description: API for testing using Rest Assured.  
+  version: 1.0.0  
+servers:  
+  - url: https://reqres.in/api  
+paths:  
+  /users/2:  
+    get:  
+      summary: Get a user with id 2  
+      responses:  
+        '200':  
+          description: Success  
+          content:  
+            application/json:  
+              schema:  
+                $ref: '#/components/schemas/User'  
+    put:  
+      summary: Update a user with id 2  
+      requestBody:  
+        content:  
+          application/json:  
+            schema:  
+              $ref: '#/components/schemas/UserUpdate'  
+      responses:  
+        '200':  
+          description: Success  
+    delete:  
+      summary: Delete a user with id 2  
+      responses:  
+        '204':  
+          description: No Content  
+  /users:  
+    get:  
+      summary: Get list of users  
+      parameters:  
+        - in: query  
+          name: page  
+          schema:  
+            type: integer  
+          description: Page number  
+      responses:  
+        '200':  
+          description: Success  
+          content:  
+            application/json:  
+              schema:  
+                $ref: '#/components/schemas/UserList'  
+    post:  
+      summary: Create a new user  
+      requestBody:  
+        content:  
+          application/json:  
+            schema:  
+              $ref: '#/components/schemas/UserCreate'  
+      responses:  
+        '201':  
+          description: Created  
+  /users/{id}:  
+    get:  
+      summary: Get a user by id  
+      parameters:  
+        - in: path  
+          name: id  
+          schema:  
+            type: integer  
+          required: true  
+      responses:  
+        '200':  
+          description: Success  
+        '404':  
+          description: Not Found  
+  /register:  
+    post:  
+      summary: Register a new user  
+      security:  
+        - BasicAuth: []  
+      responses:  
+        '400':  
+          description: Bad Request  
+components:  
+  schemas:  
+    User:  
+      type: object  
+      properties:  
+        id:  
+          type: integer  
+          example: 2  
+        first_name:  
+          type: string  
+          example: Janet  
+        last_name:  
+          type: string  
+          example: Wong  
+    UserUpdate:  
+      type: object  
+      properties:  
+        name:  
+          type: string  
+          example: Isha  
+        job:  
+          type: string  
+          example: Software Engineer  
+    UserCreate:  
+      type: object  
+      properties:  
+        name:  
+          type: string  
+          example: Sam  
+        job:  
+          type: string  
+          example: Project Leader  
+    UserList:  
+      type: object  
+      properties:  
+        data:  
+          type: array  
+          items:  
+            $ref: '#/components/schemas/User'  
+  securitySchemes:  
+    BasicAuth:  
+      type: http  
+      scheme: basic  

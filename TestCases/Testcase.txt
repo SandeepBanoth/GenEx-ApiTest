@@ -1,0 +1,111 @@
+Test Case 1:
+- Tool= Rest Assured
+- Base URL= https://reqres.in/api
+- API Endpoint= /users/2
+- HTTP Method= GET
+- Request Header= None
+- Request Body= None
+- File Location= None
+- Path Parameters= None
+- Query/Header Parameters= None
+- Authentication Type= None
+- Authentication Credentials= None
+- Expected Status Code= 200
+- Response Headers= None
+- Assertions= data.first_name: 'Janet'
+
+Test Case 2:
+- Tool= Rest Assured
+- Base URL= https://reqres.in/api
+- API Endpoint= /users
+- HTTP Method= POST
+- Request Header= ContentType.JSON
+- Request Body= {"name": "Sam", "job": "Project Leader"}
+- File Location= None
+- Path Parameters= None
+- Query/Header Parameters= None
+- Authentication Type= None
+- Authentication Credentials= None
+- Expected Status Code= 201
+- Response Headers= None
+- Assertions= name: 'Sam', job: contains 'Leader'
+
+Test Case 3:
+- Tool= Rest Assured
+- Base URL= https://reqres.in/api
+- API Endpoint= /users/2
+- HTTP Method= PUT
+- Request Header= None
+- Request Body= {"name": "Isha", "job": "Software Engineer"}
+- File Location= None
+- Path Parameters= None
+- Query/Header Parameters= None
+- Authentication Type= None
+- Authentication Credentials= None
+- Expected Status Code= 200
+- Response Headers= None
+- Assertions= None
+
+Test Case 4:
+- Tool= Rest Assured
+- Base URL= https://reqres.in/api
+- API Endpoint= /users/2
+- HTTP Method= DELETE
+- Request Header= None
+- Request Body= None
+- File Location= None
+- Path Parameters= None
+- Query/Header Parameters= None
+- Authentication Type= None
+- Authentication Credentials= None
+- Expected Status Code= 204
+- Response Headers= None
+- Assertions= None
+
+Test Case 5:
+- Tool= Rest Assured
+- Base URL= https://reqres.in/api
+- API Endpoint= /users
+- HTTP Method= GET
+- Request Header= None
+- Request Body= None
+- File Location= None
+- Path Parameters= None
+- Query/Header Parameters= page=1
+- Authentication Type= None
+- Authentication Credentials= None
+- Expected Status Code= 200
+- Response Headers= None
+- Assertions= None
+
+Test Case 6:
+- Tool= Rest Assured
+- Base URL= https://reqres.in/api
+- API Endpoint= /users
+- HTTP Method= POST
+- Request Header= ContentType.JSON
+- Request Body= {"name": "John", "job": "Developer"}
+- File Location= None
+- Path Parameters= None
+- Query/Header Parameters= None
+- Authentication Type= None
+- Authentication Credentials= None
+- Expected Status Code= 201
+- Response Headers= None
+- Assertions= None
+
+Test Case 7:
+- Tool= Rest Assured
+- Base URL= https://reqres.in/api
+- API Endpoint= /users/3
+- HTTP Method= GET
+- Request Header= None
+- Request Body= None
+- File Location= None
+- Path Parameters= id=3
+- Query/Header Parameters= None
+- Authentication Type= None
+- Authentication Credentials= None
+- Expected Status Code= 200
+- Response Headers= None
+- Assertions= data.last_name: 'Wong'

@@ -1,0 +1,278 @@
+import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
+
+public class APITest {
+    
+    @Test
+    public void validateAPIEndpoint() {
+        // Set the Base URI for the API
+        RestAssured.baseURI = "https://reqres.in/api";
+        
+        // Make a GET request to the endpoint "/users/2"
+        Response response = given()
+            .when()
+            .get("/users/2")
+            .then()
+            .extract().response();
+        
+        // Assert the status code is 200
+        response.then().statusCode(200);
+        
+        // Assert the value of data.first_name is 'Janet'
+        response.then().body("data.first_name", equalTo("Janet"));
+    }
+}import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import static org.hamcrest.Matchers.*;
+
+public class APITest {
+    
+    @Test
+    public void validateAPIEndpoint() {
+        // Set the Base URI for the API
+        RestAssured.baseURI = "https://reqres.in/api/users";
+        
+        // Make a GET request to the endpoint with path parameter id=3
+        Response response = RestAssured.given().pathParam("id", 3).get("/{id}");
+        
+        // Assert the status code is 200
+        response.then().statusCode(200);
+        
+        // Assert the value of data.last_name is 'Wong'
+        response.then().body("data.last_name", equalTo("Wong"));
+    }
+}import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import static org.hamcrest.Matchers.*;
+
+public class APITest {
+    
+    @Test
+    public void validateAPIEndpoint() {
+        // Set the Base URI for the API
+        RestAssured.baseURI = "https://reqres.in/api";
+        
+        // Make a GET request to the endpoint "/users" with query parameters
+        Response response = RestAssured.given()
+                .queryParam("page", 2)
+                .get("/users");
+        
+        // Assert the status code is 200
+        response.then().statusCode(200);
+        
+        // Assert the value of data[1].first_name is 'Lindsay'
+        response.then().body("data[1].first_name", equalTo("Lindsay"));
+    }
+}import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
+
+public class APITest {
+
+    @Test
+    public void validateAPIEndpoint() {
+        RestAssured.baseURI = "https://reqres.in/api";
+
+        given()
+            .contentType(ContentType.JSON)
+            .body("{\n" + "\"name\": \"Sam\",\n" + "\"job\": \"Project Leader\"\n" + "}")
+        .when()
+            .post("/users")
+        .then()
+            .statusCode(201)
+            .body("name", equalTo("Sam"))
+            .body("job", containsString("Leader"));
+    }
+}import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
+
+public class APITest {
+
+    @Test
+    public void validateAPIEndpoint() {
+        // Set the Base URI for the API
+        RestAssured.baseURI = "https://reqres.in/api";
+
+        // Make a PUT request to the endpoint "/users/2" with request body
+        given()
+            .contentType(ContentType.JSON)
+            .body("{\n\"name\": \"Adam\",\n\"job\": \"Software Engineer\"\n}")
+        .when()
+            .put("/users/2")
+        .then()
+            .assertThat()
+            .statusCode(200)
+            .body("job", containsString("Software"));
+    }
+}import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class APITest {
+    private static final String BASE_URI = "https://reqres.in/api";
+    private static final String ENDPOINT = "/users/2";
+    private static final String REQUEST_BODY = "{\n" + " \"name\": \"Isha\" \n" + "}";
+
+    @BeforeTest
+    public void setup() {
+        RestAssured.baseURI = BASE_URI;
+    }
+
+    @Test
+    public void testPatchRequest() {
+        Response response = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(REQUEST_BODY)
+                .patch(ENDPOINT);
+
+        int statusCode = response.getStatusCode();
+        String name = response.jsonPath().getString("name");
+
+        Assert.assertEquals(statusCode, 200);
+        Assert.assertEquals(name, "Isha1");
+    }
+
+    @AfterTest
+    public void teardown() {
+        RestAssured.reset();
+    }
+}import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
+
+public class APITest {
+    
+    @Test
+    public void testDeleteUser() {
+        // Set Base URI for the API
+        RestAssured.baseURI = "https://reqres.in/api";
+        
+        given()
+            .contentType(ContentType.JSON)
+        .when()
+            .delete("/users/2")
+        .then()
+            .statusCode(204);
+    }
+}import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import java.io.File;
+
+public class APITest {
+
+    private static final String BASE_URI = "http://localhost:8080";
+    private static final String ENDPOINT = "/uploadFile";
+    private static final String FILE_PATH = "C:\\Users\\prathima_sidda\\Downloads\\changes.txt";
+
+    @BeforeTest
+    public void setup() {
+        RestAssured.baseURI = BASE_URI;
+    }
+
+    @Test
+    public void testUploadFile() {
+        File file = new File(FILE_PATH);
+
+        Response response = RestAssured.given()
+                .multiPart(file)
+                .when()
+                .post(ENDPOINT);
+
+        int statusCode = response.getStatusCode();
+        String responseBody = response.getBody().asString();
+
+        Assert.assertEquals(statusCode, 200);
+        Assert.assertTrue(responseBody.contains("successfully uploaded"));
+    }
+
+    @AfterTest
+    public void teardown() {
+        RestAssured.reset();
+    }
+}import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.authentication.BasicAuthScheme;
+import io.restassured.response.Response;
+
+public class APITest {
+    
+    @Test
+    public void validateRegisterEndpoint() {
+        // Set the Base URI for the API
+        RestAssured.baseURI = "https://reqres.in/api";
+        
+        // Create Basic Authentication credentials
+        BasicAuthScheme authScheme = new BasicAuthScheme();
+        authScheme.setUserName("sydney@fife");
+        authScheme.setPassword("");
+        RestAssured.authentication = authScheme;
+        
+        // Make a POST request to the endpoint "/register"
+        Response response = RestAssured.given().post("/register");
+        
+        // Assert the status code is 400
+        response.then().statusCode(400);
+    }
+}import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import static org.testng.Assert.assertEquals;
+
+public class APITest {
+    
+    @Test
+    public void testAPIEndpoint() {
+        // Set the Base URI for the API
+        RestAssured.baseURI = "https://api.github.com";
+        
+        // Make a GET request to the endpoint
+        Response response = RestAssured.given().get("/user/repos");
+        
+        // Assert the status code
+        assertEquals(response.getStatusCode(), 401, "Status code is not 401");
+    }
+}import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
+
+public class APITest {
+    
+    @Test
+    public void validateAPIEndpoint() {
+        // Set the Base URI for the API
+        RestAssured.baseURI = "https://reqres.in/api";
+        
+        // Make a GET request to the endpoint with path parameter id=20
+        Response response = given()
+            .pathParam("id", 20)
+            .when()
+            .get("/users/{id}");
+        
+        // Assert the status code is 404
+        response.then().statusCode(404);
+    }
+}
